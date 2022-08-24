@@ -11,6 +11,13 @@ class Racun extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'broj_racuna',
+        'tip',
+        'stanje',
+        'osoba_id',
+    ];
+
     public function osoba()
     {
         return $this->belongsTo(Osoba::class);

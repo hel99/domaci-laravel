@@ -10,6 +10,14 @@ class Transakcija extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'tip',
+        'iznos',
+        'datum',
+        'status',
+        'racun_id'
+    ];
+
     public function racun()
     {
         return $this->belongsTo(Racun::class);

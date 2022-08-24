@@ -10,6 +10,14 @@ class Osoba extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'ime',
+        'prezime',
+        'tip',
+        'email',
+        'broj_telefona',
+    ];
+
     public function racuni()
     {
         return $this->hasMany(Racun::class);
