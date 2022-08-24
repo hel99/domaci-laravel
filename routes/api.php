@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AutfController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\OsobaController;
@@ -17,10 +18,13 @@ use App\Http\Controllers\API\RacunController;
 |
 */
 
-Route::resource('osoba', OsobaController::class)->only('index', 'update', 'show');
-Route::resource('racun', RacunController::class)->only('index', 'show', 'destroy');
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('register', [AutfController::class, 'register']);
+Route::post('login', [AutfController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('logout', [AutfController::class, 'logout']);
+    Route::resource('osoba', OsobaController::class)->only('index', 'update', 'show');
+    Route::resource('racun', RacunController::class)->only('index', 'show', 'destroy');
 });
