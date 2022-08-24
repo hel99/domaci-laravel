@@ -18,7 +18,7 @@ use App\Http\Controllers\API\RacunController;
 */
 
 Route::resource('osoba', OsobaController::class)->only('index', 'update', 'show');
-Route::resource('racun', RacunController::class);
+Route::resource('racun', RacunController::class)->only('index', 'show', 'destroy');
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

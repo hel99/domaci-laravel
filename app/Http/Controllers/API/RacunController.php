@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RacunResource;
 use App\Models\Racun;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class RacunController extends Controller
      */
     public function index()
     {
-        //
+        return RacunResource::collection(Racun::all());
     }
 
     /**
@@ -47,7 +48,7 @@ class RacunController extends Controller
      */
     public function show(Racun $racun)
     {
-        //
+        return new RacunResource($racun);
     }
 
     /**
@@ -81,6 +82,11 @@ class RacunController extends Controller
      */
     public function destroy(Racun $racun)
     {
-        //
+        $racun->delete();
+
+        return response()->json([
+            'Poruka' => 'Racun je obrisan u bazi podataka',
+            'Racun' => new RacunResource($racun)
+        ]);
     }
 }
