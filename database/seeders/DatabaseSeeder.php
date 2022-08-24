@@ -13,6 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $oSeeder = new OsobaSeeder();
+        $rSeeder = new RacunSeeder();
+        $tSeeder = new TransakcijaSeeder();
+
+        $oSeeder->run();
+        $rSeeder->run();
+        $tSeeder->run();
     }
 }
