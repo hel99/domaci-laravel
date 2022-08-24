@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OsobaResource;
 use App\Models\Osoba;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OsobaController extends Controller
 {
@@ -15,7 +17,7 @@ class OsobaController extends Controller
      */
     public function index()
     {
-        //
+        return OsobaResource::collection(Osoba::all());
     }
 
     /**
@@ -47,7 +49,7 @@ class OsobaController extends Controller
      */
     public function show(Osoba $osoba)
     {
-        //
+        return new OsobaResource($osoba);
     }
 
     /**
@@ -70,7 +72,29 @@ class OsobaController extends Controller
      */
     public function update(Request $request, Osoba $osoba)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'ime' => 'required|string',
+            'prezime' => 'required|string',
+            'tip' => 'required|string',
+            'email' => 'required|email',
+            'broj_telefona' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $osoba->ime = $request->ime;
+        $osoba->prezime = $request->prezime;
+        $osoba->tip = $request->tip;
+        $osoba->email = $request->email;
+        $osoba->broj_telefona = $request->broj_telefona;
+        $osoba->save();
+
+        return response()->json([
+            'Poruka' => 'Osoba je izmenjena u bazi podataka',
+            'Osoba' => new OsobaResource($osoba)
+        ]);
     }
 
     /**

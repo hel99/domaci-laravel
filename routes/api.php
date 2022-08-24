@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\OsobaController;
+use App\Http\Controllers\API\RacunController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('osoba', OsobaController::class);
+Route::resource('osoba', OsobaController::class)->only('index', 'update', 'show');
 Route::resource('racun', RacunController::class);
 
 
